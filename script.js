@@ -2,13 +2,13 @@ let firstNumber, secondNumber;
 let firstNumberString = '', secondNumberString = '';
 let operator;
 let result;
-let numberButtons = document.querySelectorAll("button.number");
-let operatorButtons = document.querySelectorAll("button.operator");
-let screenDisplay = document.querySelector("div.display");
-let equalButton = document.querySelector("#equal");
+const numberButtons = document.querySelectorAll("button.number");
+const operatorButtons = document.querySelectorAll("button.operator");
+const screenDisplay = document.querySelector("div.display");
+const equalButton = document.querySelector("#equal");
+const clearButton = document.querySelector("#clear");
+const dotButton = document.querySelector("#dot");
 let equalButtonPressed = false;
-let clearButton = document.querySelector("#clear");
-let dotButton = document.querySelector("#dot");
 
 
 // Operation functions
@@ -48,6 +48,7 @@ function operate (operator, a, b) {
 
 // Interface functions
 function updateNumbers(e) {
+  console.table(numberButtons);
   if (operator === undefined && result === undefined) {
     updateFirstNumber(e);
   }
@@ -57,15 +58,31 @@ function updateNumbers(e) {
 }
 
 function updateFirstNumber(e) {
-  firstNumberString += getNumber(e);
-  screenDisplay.textContent = firstNumberString;
-  firstNumber = Number(firstNumberString);
+  if (getNumber(e) === '.') {
+    if (!firstNumberString.includes('.')) {
+      firstNumberString += getNumber(e);
+      screenDisplay.textContent = firstNumberString;
+      firstNumber = Number(firstNumberString);
+    }
+  } else {
+    firstNumberString += getNumber(e);
+    screenDisplay.textContent = firstNumberString;
+    firstNumber = Number(firstNumberString);
+  }
 }
 
 function updateSecondNumber(e) {
-  secondNumberString += getNumber(e);
-  screenDisplay.textContent = secondNumberString;
-  secondNumber = Number(secondNumberString);
+  if (getNumber(e) === '.') {
+    if (!secondNumberString.includes('.')) {
+      secondNumberString += getNumber(e);
+      screenDisplay.textContent = secondNumberString;
+      secondNumber = Number(secondNumberString);
+    }
+  } else {
+    secondNumberString += getNumber(e);
+    screenDisplay.textContent = secondNumberString;
+    secondNumber = Number(secondNumberString);
+  }
 }
 
 function getNumber(e) {
@@ -129,13 +146,11 @@ function carryResult(result) {
 
 function numberOfDecimal(result) {
   const splitNumber = result.toString().split('.');
+  const decimalPlaces = 0;
   // Check if decimals exist
   if (splitNumber[1]) {
     const decimalNumbers = splitNumber[1];
     const decimalPlaces = decimalNumbers.length;
-  }
-  else {
-    decimalPlaces = 0;
   }
   return decimalPlaces;
 }
@@ -160,6 +175,7 @@ function clearMemory() {
   screenDisplay.textContent = '';
 }
 
+
 // Event listeners
 numberButtons.forEach(button => 
   button.addEventListener("click", (e) => updateNumbers(e)));
@@ -170,6 +186,7 @@ operatorButtons.forEach(button =>
 equalButton.addEventListener("click", (e) => calculate());
 
 clearButton.addEventListener("click", (e) => clearMemory());
+
 
 
 
