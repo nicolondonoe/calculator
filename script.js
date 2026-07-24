@@ -1,11 +1,12 @@
 let firstNumber, secondNumber;
+let firstNumberString = '', secondNumberString = '';
 let operator;
 let result;
 let numberButtons = document.querySelectorAll("button.number");
 let operatorButtons = document.querySelectorAll("button.operator");
 let screenDisplay = document.querySelector("div.display");
 let equalButton = document.querySelector("#equal");
-
+let equalButtonPressed = false;
 
 
 
@@ -47,26 +48,28 @@ function operate (operator, a, b) {
 
 // Interface functions
 function updateNumbers(e) {
-  if (firstNumber === undefined) {
+  if (operator === undefined && result === undefined) {
     updateFirstNumber(e);
   }
-  else if (secondNumber === undefined) {
+  else if (operator !== undefined && equalButtonPressed === false) {
     updateSecondNumber(e);
   }
 }
 
 function updateFirstNumber(e) {
-  firstNumber = getNumber(e);
-  screenDisplay.textContent = firstNumber;
+  firstNumberString += getNumber(e);
+  screenDisplay.textContent = firstNumberString;
+  firstNumber = Number(firstNumberString);
 }
 
 function updateSecondNumber(e) {
-  secondNumber = getNumber(e);
-  screenDisplay.textContent = secondNumber;
+  secondNumberString += getNumber(e);
+  screenDisplay.textContent = secondNumberString;
+  secondNumber = Number(secondNumberString);
 }
 
 function getNumber(e) {
-  return Number(e.target.textContent);
+  return (e.target.textContent);
 }
 
 function getOperator(e) {
@@ -75,30 +78,36 @@ function getOperator(e) {
 }
 
 function calculate() {
+  equalButtonPressed = true;
   if (operator === '+') {
     result = add(firstNumber, secondNumber);
-    firstNumber = result;
-    secondNumber = undefined;
+    carryResult(result);
     displayResult(result);
   }
   else if (operator === '-') {
     result = substract(firstNumber, secondNumber);
-    firstNumber = result;
-    secondNumber = undefined;
+    carryResult(result);
     displayResult(result);
   }
   else if (operator === '*') {
     result = multiply(firstNumber, secondNumber);
-    firstNumber = result;
-    secondNumber = undefined;
+    carryResult(result);
     displayResult(result);
   }
   else if (operator === '/') {
     result = divide(firstNumber, secondNumber);
-    firstNumber = result;
-    secondNumber = undefined;
+    carryResult(result);
     displayResult(result);
   }
+}
+
+function carryResult(result) {
+  firstNumber = result;
+  firstNumberString = result.toString();
+  secondNumber = undefined;
+  secondNumberString = '';
+  operator = undefined;
+  equalButtonPressed = false;
 }
 
 function displayResult(result) {
