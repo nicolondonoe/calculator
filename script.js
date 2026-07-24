@@ -77,18 +77,26 @@ function getOperator(e) {
 function calculate() {
   if (operator === '+') {
     result = add(firstNumber, secondNumber);
+    firstNumber = result;
+    secondNumber = undefined;
     displayResult(result);
   }
   else if (operator === '-') {
     result = substract(firstNumber, secondNumber);
+    firstNumber = result;
+    secondNumber = undefined;
     displayResult(result);
   }
   else if (operator === '*') {
     result = multiply(firstNumber, secondNumber);
+    firstNumber = result;
+    secondNumber = undefined;
     displayResult(result);
   }
   else if (operator === '/') {
     result = divide(firstNumber, secondNumber);
+    firstNumber = result;
+    secondNumber = undefined;
     displayResult(result);
   }
 }
