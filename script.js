@@ -13,6 +13,7 @@ const backspaceButton = document.querySelector("#backspace");
 
 let equalButtonPressed = false;
 let currentNumber = '';
+let keyPressed = '';
 
 // Operation functions
 function add(a, b) {
@@ -61,53 +62,71 @@ function updateNumbers(e) {
   }
 }
 
-function backspace() {
-  // console.log("exec")
-  let strLength;
-  if (currentNumber === 'first') {
-    strLength = firstNumberString.length;
-    firstNumberString = firstNumberString.slice(0, strLength-1);
-    screenDisplay.textContent = firstNumberString;
-    firstNumber = Number(firstNumberString);
-  }
-
-  else if (currentNumber === 'second') {
-    strLength = secondNumberString.length;
-    secondNumberString = secondNumberString.slice(0, strLength-1);
-    screenDisplay.textContent = secondNumberString;
-    secondNumber = Number(secondNumberString);
-  }
-}
 
 function updateFirstNumber(e) {
-  if (getNumber(e) === '.') {
-    if (!firstNumberString.includes('.')) {
-      firstNumberString += getNumber(e);
+  // Check if the input comes from button or keyboard
+  if (e.key) {
+    if (e.key === '.') {
+      if (!firstNumberString.includes('.')) {
+        firstNumberString += e.key;
+        screenDisplay.textContent = firstNumberString;
+        firstNumber = Number(firstNumberString);
+      }
+    } else {
+      firstNumberString += e.key;
       screenDisplay.textContent = firstNumberString;
       firstNumber = Number(firstNumberString);
     }
-  } else {
-    firstNumberString += getNumber(e);
-    screenDisplay.textContent = firstNumberString;
-    firstNumber = Number(firstNumberString);
   }
+  
+  else {
+    if (getNumberByButton(e) === '.') {
+      if (!firstNumberString.includes('.')) {
+        firstNumberString += getNumberByButton(e);
+        screenDisplay.textContent = firstNumberString;
+        firstNumber = Number(firstNumberString);
+      }
+    } else {
+      firstNumberString += getNumberByButton(e);
+      screenDisplay.textContent = firstNumberString;
+      firstNumber = Number(firstNumberString);
+    }
+  }
+
 }
 
 function updateSecondNumber(e) {
-  if (getNumber(e) === '.') {
-    if (!secondNumberString.includes('.')) {
-      secondNumberString += getNumber(e);
+  if (e.key) {
+    if (e.key === '.') {
+      if (!secondNumberString.includes('.')) {
+        secondNumberString += e.key;
+        screenDisplay.textContent = secondNumberString;
+        secondNumber = Number(secondNumberString);
+      }
+    } else {
+      secondNumberString += e.key;
       screenDisplay.textContent = secondNumberString;
       secondNumber = Number(secondNumberString);
     }
-  } else {
-    secondNumberString += getNumber(e);
-    screenDisplay.textContent = secondNumberString;
-    secondNumber = Number(secondNumberString);
+  } 
+
+  else {
+    if (getNumberByButton(e) === '.') {
+      if (!secondNumberString.includes('.')) {
+        secondNumberString += getNumberByButton(e);
+        screenDisplay.textContent = secondNumberString;
+        secondNumber = Number(secondNumberString);
+      }
+    } else {
+      secondNumberString += getNumberByButton(e);
+      screenDisplay.textContent = secondNumberString;
+      secondNumber = Number(secondNumberString);
+    }
   }
+
 }
 
-function getNumber(e) {
+function getNumberByButton(e) {
   return (e.target.textContent);
 }
 
@@ -197,21 +216,52 @@ function clearMemory() {
   screenDisplay.textContent = '';
 }
 
+function backspace() {
+  // console.log("exec")
+  let strLength;
+  if (currentNumber === 'first') {
+    strLength = firstNumberString.length;
+    firstNumberString = firstNumberString.slice(0, strLength-1);
+    screenDisplay.textContent = firstNumberString;
+    firstNumber = Number(firstNumberString);
+  }
 
+  else if (currentNumber === 'second') {
+    strLength = secondNumberString.length;
+    secondNumberString = secondNumberString.slice(0, strLength-1);
+    screenDisplay.textContent = secondNumberString;
+    secondNumber = Number(secondNumberString);
+  }
+}
+
+function getKeyPressed(e) {
+  keyPressed = e.key;
+}
 
 
 // Event listeners
 numberButtons.forEach(button => 
   button.addEventListener("click", (e) => updateNumbers(e)));
-
-operatorButtons.forEach(button =>
-  button.addEventListener("click", (e) => operatorUse(e)));
+  
+  operatorButtons.forEach(button =>
+    button.addEventListener("click", (e) => operatorUse(e)));
 
 equalButton.addEventListener("click", (e) => calculate());
 
 clearButton.addEventListener("click", (e) => clearMemory());
 
 backspaceButton.addEventListener("click", () => backspace());
+
+document.addEventListener("keypress", (e) =>  {
+  if (/[0-9.]/.test(e.key)) {
+    updateNumbers(e);
+  }
+
+  // if (/[/*-+]/.test(e.key)) {
+  //   operatorUse(e);
+  // }
+
+});
 
 
 
