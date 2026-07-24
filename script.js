@@ -1,6 +1,7 @@
 let firstNumber, secondNumber;
 let operator;
 let numberButtons = document.querySelectorAll("button.number");
+let operatorButtons = document.querySelectorAll("button.operator");
 let screenDisplay = document.querySelector("div.display");
 
 
@@ -42,19 +43,44 @@ function operate (operator, a, b) {
   }
 }
 
+
+function getOperator(e) {
+  operator = e.target.textContent;
+  return operator;
+}
+
+// Interface functions
+function updateNumbers(e) {
+  if (firstNumber === undefined) {
+    updateFirstNumber(e);
+  }
+  else if (secondNumber === undefined) {
+    updateSecondNumber(e);
+  }
+}
+
+function updateFirstNumber(e) {
+  firstNumber = getNumber(e);
+  screenDisplay.textContent = firstNumber;
+}
+
+function updateSecondNumber(e) {
+  secondNumber = getNumber(e);
+  screenDisplay.textContent = secondNumber;
+}
+
 function getNumber(e) {
   return Number(e.target.textContent);
 }
 
-// Interface functions
-function updateNumber(e) {
-  firstNumber = getNumber(e);
-  console.log(firstNumber);
-  screenDisplay.textContent = firstNumber;
-}
-
 numberButtons.forEach(button => 
-  button.addEventListener("click", (e) => updateNumber(e)));
+  button.addEventListener("click", (e) => updateNumbers(e)));
+
+operatorButtons.forEach(button =>
+  button.addEventListener("click", (e) => getOperator(e)));
+
+
+
 
 
 
