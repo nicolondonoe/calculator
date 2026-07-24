@@ -263,7 +263,7 @@ clearButton.addEventListener("click", (e) => clearMemory());
 
 backspaceButton.addEventListener("click", () => backspace());
 
-document.addEventListener("keypress", (e) =>  {
+document.addEventListener("keydown", (e) =>  {
   if (/[0-9.]/.test(e.key)) {
     updateNumbers(e);
   }
@@ -279,6 +279,11 @@ document.addEventListener("keypress", (e) =>  {
   else if (e.key === "Delete") {
     clearMemory();
   }
+
+  else if (e.key === "Backspace") {
+    backspace();
+  }
+
 });
 
 document.querySelectorAll('button').forEach(btn => {

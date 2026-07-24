@@ -26,6 +26,10 @@ body {
   display: flex;
 }
 
+.functions {
+  display: flex;
+}
+
 .inputContainer {
   display: flex;
   flex: 1 1;
