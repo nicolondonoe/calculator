@@ -130,18 +130,29 @@ function getNumberByButton(e) {
   return (e.target.textContent);
 }
 
-function getOperator(e) {
+function getOperatorByButton(e) {
   operator = e.target.textContent;
   return operator;
 }
 
 function operatorUse(e) {
-  if (secondNumber === undefined) {
-    getOperator(e);
+  if (e.key) {
+    if (secondNumber === undefined) {
+      operator = e.key;
+    }
+    if (secondNumber !== undefined) {
+      calculate();
+      operator = e.key;
+    }
   }
-  if (secondNumber !== undefined) {
-    calculate();
-    getOperator(e);
+  else {
+    if (secondNumber === undefined) {
+      getOperatorByButton(e);
+    }
+    if (secondNumber !== undefined) {
+      calculate();
+      getOperatorByButton(e);
+    }
   }
 }
 
@@ -257,10 +268,21 @@ document.addEventListener("keypress", (e) =>  {
     updateNumbers(e);
   }
 
-  // if (/[/*-+]/.test(e.key)) {
-  //   operatorUse(e);
-  // }
+  else if (/[/*+-]/.test(e.key)) {
+    operatorUse(e);
+  }
 
+  else if (e.key === "Enter") {
+    calculate();
+  }
+
+  else if (e.key === "Delete") {
+    clearMemory();
+  }
+});
+
+document.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('click', () => btn.blur());
 });
 
 
