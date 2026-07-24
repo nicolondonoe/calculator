@@ -24,7 +24,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
   if (b === 0) {
-    return undefined;
+    return 'Math error';
   }
   return a/b;
 }
@@ -86,24 +86,31 @@ function operatorUse(e) {
 }
 
 function calculate() {
-  equalButtonPressed = true;
-  if (operator === '+') {
-    result = add(firstNumber, secondNumber);
-    carryResult(result);
-    displayResult(result);
+  if (firstNumber !== undefined && secondNumber !== undefined) {
+    equalButtonPressed = true;
+    if (operator === '+') {
+      result = add(firstNumber, secondNumber);
+      carryResult(result);
+      displayResult(result);
+    }
+    else if (operator === '-') {
+      result = substract(firstNumber, secondNumber);
+      carryResult(result);
+      displayResult(result);
+    }
+    else if (operator === '*') {
+      result = multiply(firstNumber, secondNumber);
+      carryResult(result);
+      displayResult(result);
+    }
+    else if (operator === '/') {
+      result = divide(firstNumber, secondNumber);
+      carryResult(result);
+      displayResult(result);
+    }
   }
-  else if (operator === '-') {
-    result = substract(firstNumber, secondNumber);
-    carryResult(result);
-    displayResult(result);
-  }
-  else if (operator === '*') {
-    result = multiply(firstNumber, secondNumber);
-    carryResult(result);
-    displayResult(result);
-  }
-  else if (operator === '/') {
-    result = divide(firstNumber, secondNumber);
+  else if (firstNumber !== undefined && secondNumber == undefined) {
+    result = firstNumber;
     carryResult(result);
     displayResult(result);
   }
