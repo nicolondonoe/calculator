@@ -2,14 +2,17 @@ let firstNumber, secondNumber;
 let firstNumberString = '', secondNumberString = '';
 let operator;
 let result;
+
 const numberButtons = document.querySelectorAll("button.number");
 const operatorButtons = document.querySelectorAll("button.operator");
 const screenDisplay = document.querySelector("div.display");
 const equalButton = document.querySelector("#equal");
 const clearButton = document.querySelector("#clear");
 const dotButton = document.querySelector("#dot");
-let equalButtonPressed = false;
+const backspaceButton = document.querySelector("#backspace");
 
+let equalButtonPressed = false;
+let currentNumber = '';
 
 // Operation functions
 function add(a, b) {
@@ -48,12 +51,31 @@ function operate (operator, a, b) {
 
 // Interface functions
 function updateNumbers(e) {
-  console.table(numberButtons);
   if (operator === undefined && result === undefined) {
     updateFirstNumber(e);
+    currentNumber = 'first';
   }
   else if (operator !== undefined && equalButtonPressed === false) {
     updateSecondNumber(e);
+    currentNumber = 'second';
+  }
+}
+
+function backspace() {
+  // console.log("exec")
+  let strLength;
+  if (currentNumber === 'first') {
+    strLength = firstNumberString.length;
+    firstNumberString = firstNumberString.slice(0, strLength-1);
+    screenDisplay.textContent = firstNumberString;
+    firstNumber = Number(firstNumberString);
+  }
+
+  else if (currentNumber === 'second') {
+    strLength = secondNumberString.length;
+    secondNumberString = secondNumberString.slice(0, strLength-1);
+    screenDisplay.textContent = secondNumberString;
+    secondNumber = Number(secondNumberString);
   }
 }
 
@@ -176,6 +198,8 @@ function clearMemory() {
 }
 
 
+
+
 // Event listeners
 numberButtons.forEach(button => 
   button.addEventListener("click", (e) => updateNumbers(e)));
@@ -187,6 +211,7 @@ equalButton.addEventListener("click", (e) => calculate());
 
 clearButton.addEventListener("click", (e) => clearMemory());
 
+backspaceButton.addEventListener("click", () => backspace());
 
 
 
