@@ -1,3 +1,12 @@
+let firstNumber, secondNumber;
+let operator;
+let numberButtons = document.querySelectorAll("button.number");
+let screenDisplay = document.querySelector("div.display");
+
+
+
+
+
 // Operation functions
 function add(a, b) {
   return a+b;
@@ -32,4 +41,22 @@ function operate (operator, a, b) {
     return divide(a, b);
   }
 }
+
+function getNumber(e) {
+  return Number(e.target.textContent);
+}
+
+// Interface functions
+function updateNumber(e) {
+  firstNumber = getNumber(e);
+  console.log(firstNumber);
+  screenDisplay.textContent = firstNumber;
+}
+
+numberButtons.forEach(button => 
+  button.addEventListener("click", (e) => updateNumber(e)));
+
+
+
+
 
