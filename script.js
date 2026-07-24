@@ -1,8 +1,10 @@
 let firstNumber, secondNumber;
 let operator;
+let result;
 let numberButtons = document.querySelectorAll("button.number");
 let operatorButtons = document.querySelectorAll("button.operator");
 let screenDisplay = document.querySelector("div.display");
+let equalButton = document.querySelector("#equal");
 
 
 
@@ -43,12 +45,6 @@ function operate (operator, a, b) {
   }
 }
 
-
-function getOperator(e) {
-  operator = e.target.textContent;
-  return operator;
-}
-
 // Interface functions
 function updateNumbers(e) {
   if (firstNumber === undefined) {
@@ -73,11 +69,41 @@ function getNumber(e) {
   return Number(e.target.textContent);
 }
 
+function getOperator(e) {
+  operator = e.target.textContent;
+  return operator;
+}
+
+function calculate() {
+  if (operator === '+') {
+    result = add(firstNumber, secondNumber);
+    displayResult(result);
+  }
+  else if (operator === '-') {
+    result = substract(firstNumber, secondNumber);
+    displayResult(result);
+  }
+  else if (operator === '*') {
+    result = multiply(firstNumber, secondNumber);
+    displayResult(result);
+  }
+  else if (operator === '/') {
+    result = divide(firstNumber, secondNumber);
+    displayResult(result);
+  }
+}
+
+function displayResult(result) {
+  screenDisplay.textContent = result;
+}
+
 numberButtons.forEach(button => 
   button.addEventListener("click", (e) => updateNumbers(e)));
 
 operatorButtons.forEach(button =>
   button.addEventListener("click", (e) => getOperator(e)));
+
+equalButton.addEventListener("click", (e) => calculate());
 
 
 
