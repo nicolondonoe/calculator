@@ -109,7 +109,7 @@ function calculate() {
       displayResult(result);
     }
   }
-  else if (firstNumber !== undefined && secondNumber == undefined) {
+  else if ((firstNumber !== undefined && secondNumber == undefined) && operator === undefined) {
     result = firstNumber;
     carryResult(result);
     displayResult(result);
