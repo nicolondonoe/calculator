@@ -32,19 +32,15 @@ body {
 
 .inputContainer {
   display: flex;
-  flex: 1 1;
+  flex: 1 1 auto;
 }
 
 .numbers {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 175px;
-}
-
-.operators {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0;
+  flex:1 1 auto;
 }
 
 .firstCol, 
@@ -52,15 +48,11 @@ body {
 .thirdCol,
 .fourthCol {
   display: flex;
-  flex: 1 1 auto;
-}
-
-.fourthCol {
-  max-height: 3em;
+  flex: 1 0 0;
 }
 
 .calcButton {
-  flex: 1 1 0;
+  flex: 1 0 0;
   border-color: rgba(0, 0, 0, 0.329);
 }
 

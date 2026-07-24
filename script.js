@@ -198,17 +198,18 @@ function carryResult(result) {
 
 function numberOfDecimal(result) {
   const splitNumber = result.toString().split('.');
-  const decimalPlaces = 0;
+  let decimalPlaces = 0;
   // Check if decimals exist
   if (splitNumber[1]) {
     const decimalNumbers = splitNumber[1];
-    const decimalPlaces = decimalNumbers.length;
+    decimalPlaces = decimalNumbers.length;
   }
   return decimalPlaces;
 }
 
 function displayResult(result) {
   if (numberOfDecimal(result) > 10) {
+    console.log(result.toFixed(10));
     screenDisplay.textContent = result.toFixed(10);
   }
   else {
@@ -283,9 +284,9 @@ document.addEventListener("keydown", (e) =>  {
   else if (e.key === "Backspace") {
     backspace();
   }
-
 });
 
+// Blur so the buttons aren't highlighted when clicked 
 document.querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => btn.blur());
 });
