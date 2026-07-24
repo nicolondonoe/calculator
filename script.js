@@ -208,8 +208,8 @@ function numberOfDecimal(result) {
 }
 
 function displayResult(result) {
-  if (numberOfDecimal(result) > 10) {
-    console.log(result.toFixed(10));
+  if (numberOfDecimal(result) > 7) {
+    console.log(result.toFixed(7));
     screenDisplay.textContent = result.toFixed(10);
   }
   else {
@@ -290,11 +290,3 @@ document.addEventListener("keydown", (e) =>  {
 document.querySelectorAll('button').forEach(btn => {
   btn.addEventListener('click', () => btn.blur());
 });
-
-
-
-
-
-
-
-
