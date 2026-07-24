@@ -125,8 +125,20 @@ function carryResult(result) {
   equalButtonPressed = false;
 }
 
+function numberOfDecimal(result) {
+  const splitNumber = result.toString().split('.');
+  const decimalNumbers = splitNumber[1];
+  const decimalPlaces = decimalNumbers.length;
+  return decimalPlaces;
+}
+
 function displayResult(result) {
-  screenDisplay.textContent = result;
+  if (numberOfDecimal(result) > 10) {
+    screenDisplay.textContent = result.toFixed(10);
+  }
+  else {
+    screenDisplay.textContent = result
+  }
 }
 
 function clearMemory() {
@@ -150,6 +162,7 @@ operatorButtons.forEach(button =>
 equalButton.addEventListener("click", (e) => calculate());
 
 clearButton.addEventListener("click", (e) => clearMemory());
+
 
 
 
