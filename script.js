@@ -7,9 +7,7 @@ let operatorButtons = document.querySelectorAll("button.operator");
 let screenDisplay = document.querySelector("div.display");
 let equalButton = document.querySelector("#equal");
 let equalButtonPressed = false;
-
-
-
+let clearButton = document.querySelector("#clear");
 
 // Operation functions
 function add(a, b) {
@@ -77,6 +75,16 @@ function getOperator(e) {
   return operator;
 }
 
+function operatorUse(e) {
+  if (secondNumber === undefined) {
+    getOperator(e);
+  }
+  if (secondNumber !== undefined) {
+    calculate();
+    getOperator(e);
+  }
+}
+
 function calculate() {
   equalButtonPressed = true;
   if (operator === '+') {
@@ -114,15 +122,27 @@ function displayResult(result) {
   screenDisplay.textContent = result;
 }
 
+function clearMemory() {
+  firstNumber = undefined;
+  secondNumber = undefined;
+  firstNumberString = '';
+  secondNumberString = '';
+  operator = undefined;
+  result = undefined;
+  equalButtonPressed = false;
+  screenDisplay.textContent = '';
+}
+
+// Event listeners
 numberButtons.forEach(button => 
   button.addEventListener("click", (e) => updateNumbers(e)));
 
 operatorButtons.forEach(button =>
-  button.addEventListener("click", (e) => getOperator(e)));
+  button.addEventListener("click", (e) => operatorUse(e)));
 
 equalButton.addEventListener("click", (e) => calculate());
 
-
+clearButton.addEventListener("click", (e) => clearMemory());
 
 
 
