@@ -8,6 +8,8 @@ let screenDisplay = document.querySelector("div.display");
 let equalButton = document.querySelector("#equal");
 let equalButtonPressed = false;
 let clearButton = document.querySelector("#clear");
+let dotButton = document.querySelector("#dot");
+
 
 // Operation functions
 function add(a, b) {
@@ -127,8 +129,14 @@ function carryResult(result) {
 
 function numberOfDecimal(result) {
   const splitNumber = result.toString().split('.');
-  const decimalNumbers = splitNumber[1];
-  const decimalPlaces = decimalNumbers.length;
+  // Check if decimals exist
+  if (splitNumber[1]) {
+    const decimalNumbers = splitNumber[1];
+    const decimalPlaces = decimalNumbers.length;
+  }
+  else {
+    decimalPlaces = 0;
+  }
   return decimalPlaces;
 }
 
@@ -137,7 +145,7 @@ function displayResult(result) {
     screenDisplay.textContent = result.toFixed(10);
   }
   else {
-    screenDisplay.textContent = result
+    screenDisplay.textContent = result;
   }
 }
 
@@ -162,6 +170,7 @@ operatorButtons.forEach(button =>
 equalButton.addEventListener("click", (e) => calculate());
 
 clearButton.addEventListener("click", (e) => clearMemory());
+
 
 
 
