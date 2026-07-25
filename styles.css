@@ -7,6 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: rgb(230, 230, 230);
 }
 
 body, button {
@@ -22,11 +23,11 @@ button {
   box-sizing: border-box;
   flex-direction: column;
   justify-content: flex-start;
-  /* align-items: center; */
   flex: 0 1;
   min-height: 628px;
   border-style: solid;
-  border-radius: 15px;
+  border-width: .2em;
+  border-radius: 40px;
   min-width: 400px;
   padding: 25px;
   gap: 1em;
@@ -38,14 +39,11 @@ button {
   padding: 25px;
   min-height: 125px;
   display: flex;
-  /* border-style: solid; */
-  /* border-color: aqua; */
-  /* display: flex; */
-  /* flex-wrap: wrap; */
   flex-direction: column;
   justify-content: flex-end;
   border-style: solid;
-  border-radius: 15px;
+  border-radius: 40px;
+  border-width: .2em;
   background-color: rgb(210, 221, 235);
 }
 
@@ -66,35 +64,69 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex:1 1 auto;
-  gap: .5em
+  flex: 1 1 auto;
+  gap: .5em;
 }
 
-.firstCol, 
-.secondCol,
-.thirdCol,
-.fourthCol {
+.firstRow, 
+.secondRow,
+.thirdRow,
+.fourthRow {
   display: flex;
-  flex: 1 0 0;
+  flex: 1 1 0;
   gap: .5em;
+  align-items: center;
 }
 
 .calcButton {
   box-sizing: border-box;
-  flex: 1 0 0;
-  border-color: rgb(224, 224, 224);
+  flex: 1 1 0;
+  border-color: rgb(56, 53, 53);
   border-style: solid;
   border-radius: 100%;
   padding: 1em;
   background-color: rgba(0, 0, 0, 0.534);
   color: aliceblue;
   font-size: 20px;
+  font-weight: 800;
 }
 
+.numbers .calcButton {
+  aspect-ratio: 1 / 1;
+}
+
+/* .numbers #equal {
+  background-color: rgb(75, 133, 199);
+} */
+
+.calcButton.operator,
+#equal {
+  background-color: rgb(70, 129, 184);
+}
+
+.functions #clear {
+  background-color: rgb(177, 62, 62);
+}
+
+.functions button {
+  border-radius: 40px;
+}
 
 #backspace {
   font-size: 20px;
 }
+
+button {
+  transition: transform 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.486);
+}
+
+
 
 .display {
   /* margin-right: .1em; */
