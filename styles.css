@@ -4,7 +4,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: stretch;
   align-items: center;
   height: 100vh;
   background-color: rgb(230, 230, 230);
@@ -18,17 +18,20 @@ button {
   box-sizing: border-box;
 }
 
+.whitespace {
+  flex: 1 1 0;
+}
+
 .container {
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
   justify-content: flex-start;
-  flex: 0 1;
-  min-height: 628px;
+  flex: 1 1 auto;
   border-style: solid;
   border-width: .2em;
   border-radius: 40px;
-  min-width: 400px;
+  width: 400px;
   padding: 25px;
   gap: 1em;
   background-color: rgb(166, 175, 187);
@@ -37,8 +40,8 @@ button {
 
 .screen {
   box-sizing: border-box;
-  padding: 25px;
-  min-height: 125px;
+  padding: 10px;
+  min-height: 0px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -46,6 +49,16 @@ button {
   border-radius: 40px;
   border-width: .2em;
   background-color: rgb(210, 221, 235);
+  flex: 1 1 auto;
+}
+
+.display {
+  min-height: 57px;
+  font-size: 3rem;
+  font-family: 'Bitcount Single', monospace;
+  text-align: right;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 
@@ -57,7 +70,7 @@ button {
 .inputContainer {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1 0 0;
   gap: .5em;
 }
 
@@ -65,7 +78,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   gap: .5em;
 }
 
@@ -96,10 +109,6 @@ button {
   aspect-ratio: 1 / 1;
 }
 
-/* .numbers #equal {
-  background-color: rgb(75, 133, 199);
-} */
-
 .calcButton.operator,
 #equal {
   background-color: rgb(70, 129, 184);
@@ -129,16 +138,6 @@ button:hover {
 
 
 
-.display {
-  /* margin-right: .1em; */
-  /* margin-bottom: .1em; */
-  margin-left: auto;
-  margin-top: auto;
-  font-size: 2.5rem;
-  font-family: 'Bitcount Single', monospace;
-  text-align: right;
-  word-wrap: break-word;
-  word-break: break-all;
-}
+
 
 
