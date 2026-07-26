@@ -2,6 +2,7 @@ let firstNumber, secondNumber;
 let firstNumberString = '', secondNumberString = '';
 let operator;
 let result;
+let pastOperation = '';
 
 const numberButtons = document.querySelectorAll("button.number");
 const operatorButtons = document.querySelectorAll("button.operator");
@@ -10,8 +11,10 @@ const equalButton = document.querySelector("#equal");
 const clearButton = document.querySelector("#clear");
 const dotButton = document.querySelector("#dot");
 const backspaceButton = document.querySelector("#backspace");
+const pastOperationDisplay = document.querySelector("div.pastOperationDisplay");
 
 let equalButtonPressed = false;
+let firstUpdated = false;
 let currentNumber = '';
 let keyPressed = '';
 
@@ -62,7 +65,6 @@ function updateNumbers(e) {
   }
 }
 
-
 function updateFirstNumber(e) {
   // Check if the input comes from button or keyboard
   if (e.key) {
@@ -71,11 +73,13 @@ function updateFirstNumber(e) {
         firstNumberString += e.key;
         screenDisplay.textContent = firstNumberString;
         firstNumber = Number(firstNumberString);
+        updatePastOperation(firstNumberString);
       }
     } else {
       firstNumberString += e.key;
       screenDisplay.textContent = firstNumberString;
       firstNumber = Number(firstNumberString);
+      updatePastOperation(firstNumberString);
     }
   }
   
@@ -85,11 +89,14 @@ function updateFirstNumber(e) {
         firstNumberString += getNumberByButton(e);
         screenDisplay.textContent = firstNumberString;
         firstNumber = Number(firstNumberString);
+        updatePastOperation(firstNumberString); 
       }
     } else {
       firstNumberString += getNumberByButton(e);
       screenDisplay.textContent = firstNumberString;
       firstNumber = Number(firstNumberString);
+      updatePastOperation(firstNumberString); 
+      // console.log(pastOperation);
     }
   }
 
@@ -102,11 +109,13 @@ function updateSecondNumber(e) {
         secondNumberString += e.key;
         screenDisplay.textContent = secondNumberString;
         secondNumber = Number(secondNumberString);
+        updatePastOperation(secondNumberString);
       }
     } else {
       secondNumberString += e.key;
       screenDisplay.textContent = secondNumberString;
       secondNumber = Number(secondNumberString);
+      updatePastOperation(secondNumberString);
     }
   } 
 
@@ -116,12 +125,48 @@ function updateSecondNumber(e) {
         secondNumberString += getNumberByButton(e);
         screenDisplay.textContent = secondNumberString;
         secondNumber = Number(secondNumberString);
+        updatePastOperation(secondNumberString);
       }
     } else {
       secondNumberString += getNumberByButton(e);
       screenDisplay.textContent = secondNumberString;
       secondNumber = Number(secondNumberString);
+      updatePastOperation(secondNumberString);
     }
+  }
+
+}
+
+function updatePastOperation(string) {
+
+  
+  // check if it includes space, in case the user wants to operate the same number, 
+  // it could be added as a first number but actually be a second number
+  if (string === firstNumberString && !pastOperation.includes(' ')) {
+    pastOperation = firstNumberString;
+    // firstUpdated = true;
+  } 
+
+  // check if past operation is empty in case the user is making an operation right after
+  // another calculation
+  else if (string === operator && pastOperation !== '') {
+    pastOperation += ` ${operator}`;
+    pastOperationDisplay.textContent = pastOperation;
+  }
+
+  else if (string === operator && pastOperation === '') {
+    pastOperation += `${firstNumber} ${operator}`;
+    pastOperationDisplay.textContent = pastOperation;
+  }
+
+  else if (string === secondNumberString) {
+    pastOperation += ` ${secondNumberString}`;
+    pastOperationDisplay.textContent = pastOperation;
+  }
+
+  else if (string === 'result' && !pastOperation.includes("=")) {
+    pastOperation += ` = ${result}`;
+    pastOperationDisplay.textContent = pastOperation;
   }
 
 }
@@ -139,6 +184,7 @@ function operatorUse(e) {
   if (e.key) {
     if (secondNumber === undefined) {
       operator = e.key;
+      updatePastOperation(operator);
     }
     if (secondNumber !== undefined) {
       calculate();
@@ -148,12 +194,15 @@ function operatorUse(e) {
   else {
     if (secondNumber === undefined) {
       getOperatorByButton(e);
+      updatePastOperation(operator);
     }
     if (secondNumber !== undefined) {
       calculate();
       getOperatorByButton(e);
     }
   }
+
+
 }
 
 function calculate() {
@@ -215,6 +264,9 @@ function displayResult(result) {
   else {
     screenDisplay.textContent = result;
   }
+
+  updatePastOperation('result');
+  pastOperation = '';
 }
 
 function clearMemory() {
@@ -225,7 +277,10 @@ function clearMemory() {
   operator = undefined;
   result = undefined;
   equalButtonPressed = false;
+  firstUpdated = false;
+  pastOperation = '';
   screenDisplay.textContent = '';
+  pastOperationDisplay.textContent = '';
 }
 
 function backspace() {
