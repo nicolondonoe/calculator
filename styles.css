@@ -141,7 +141,31 @@ button:hover {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.486);
 }
 
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1em;
+  gap: 1em;
+}
 
+.footerText {
+  box-sizing: border-box;
+  height: fit-content;
+  flex: auto;
+  font-size: 1rem;
+}
+
+.github-logo {
+  display: block;
+  max-width: 28px;
+  max-height: 28px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.github-logo:hover {
+  transform: scale(1.05);
+}
 
 
 
